@@ -1,43 +1,75 @@
-# Algorithms
+# Bubble Sort Algorithm
 
-Welcome to the Algorithms repository! This repository contains implementations of various important algorithms that are fundamental to computer science and software engineering. Below is a list of the key algorithms we will be covering:
+## Introduction
 
-## Sorting Algorithms
-1. **Bubble Sort** - A simple comparison-based sorting algorithm.
-2. **Selection Sort** - An in-place comparison-based sorting algorithm.
-3. **Insertion Sort** - A simple and efficient comparison-based sorting algorithm.
-4. **Merge Sort** - A divide-and-conquer algorithm that is efficient and stable.
-5. **Quick Sort** - A highly efficient sorting algorithm that uses partitioning.
+Bubble Sort is a simple comparison-based sorting algorithm. It repeatedly traverses the list, compares adjacent elements, and swaps them if they are in the wrong order. The process continues until the list is sorted.
 
-## Searching Algorithms
-1. **Linear Search** - A simple search algorithm that checks each element.
-2. **Binary Search** - An efficient algorithm for finding an item from a sorted list.
+## How Bubble Sort Works
 
-## Graph Algorithms
-1. **Depth-First Search (DFS)** - An algorithm for traversing or searching tree or graph data structures.
-2. **Breadth-First Search (BFS)** - An algorithm for traversing or searching tree or graph data structures.
-3. **Dijkstra's Algorithm** - An algorithm for finding the shortest paths between nodes in a graph.
-4. **A* Search Algorithm** - An algorithm that is used in pathfinding and graph traversal.
+1. Start at the beginning of the list.
+2. Compare adjacent elements.
+3. If they are out of order, swap them.
+4. Move to the next pair and repeat.
+5. After each pass, the largest element "bubbles up" to its correct position.
+6. Repeat the process for the remaining elements until the list is sorted.
 
-## Dynamic Programming
-1. **Fibonacci Sequence** - A classic example of dynamic programming.
-2. **Knapsack Problem** - A problem in combinatorial optimization.
-3. **Longest Common Subsequence** - A problem to find the longest subsequence common to all sequences in a set of sequences.
+## Time Complexity
 
-## String Algorithms
-1. **KMP Algorithm** - An efficient string matching algorithm.
-2. **Rabin-Karp Algorithm** - A string searching algorithm that uses hashing.
+| Case             | Time Complexity | Explanation                            |
+| ---------------- | --------------- | -------------------------------------- |
+| **Best Case**    | **O(n)**        | Already sorted, only one pass needed   |
+| **Average Case** | **O(n²)**       | Random order, multiple passes required |
+| **Worst Case**   | **O(n²)**       | Reverse sorted, maximum swaps needed   |
 
-## Other Important Algorithms
-1. **Euclidean Algorithm** - An efficient method for computing the greatest common divisor (GCD).
-2. **Prime Number Algorithms** - Algorithms for finding prime numbers, such as the Sieve of Eratosthenes.
+## Space Complexity
 
-Each algorithm will be implemented in a separate file with detailed comments and explanations. We hope this repository will be a valuable resource for learning and understanding these fundamental algorithms.
+- **O(1)** (In-place sorting, requires no additional memory apart from variables)
 
-Happy coding!
+## Stability
 
-## Contributing
-We welcome contributions! If you have an algorithm that you would like to add or an improvement to an existing algorithm, please feel free to submit a pull request.
+Bubble Sort is a **stable sorting algorithm**, meaning it maintains the relative order of equal elements.
 
-## License
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+## Implementation (JavaScript)
+
+```javascript
+function bubbleSort(arr) {
+     let n = arr.length;
+    let swapped;
+    do {
+        swapped = false;
+        for (let i = 0; i < n - 1; i++) {
+            if (arr[i] > arr[i + 1]) {
+                [arr[i], arr[i + 1]] = [arr[i + 1], arr[i]]; // Swap
+                swapped = true;
+            }
+        }
+        n--; // Reduce the range of elements to check
+    } while (swapped);
+    return arr;}
+
+// Example usage:
+console.log(bubbleSort([5, 3, 8, 4, 2]));
+```
+
+## Advantages
+
+- Simple to implement
+- Stable sorting algorithm
+- Works well on small datasets
+
+## Disadvantages
+
+- **Inefficient for large datasets** due to **O(n²) complexity**
+- Performs unnecessary swaps even when the list is nearly sorted
+- Other algorithms like **Merge Sort, Quick Sort, and Heap Sort** are more efficient
+
+## When to Use Bubble Sort
+
+- When simplicity is preferred over efficiency
+- When working with **small datasets**
+- When the dataset is **almost sorted** (best case O(n))
+
+## Conclusion
+
+Bubble Sort is a fundamental sorting algorithm but is inefficient for large-scale use. For better performance, use **Merge Sort (O(n log n))** or **Quick Sort (O(n log n) on average)** instead.
+
