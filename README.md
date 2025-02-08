@@ -1,43 +1,72 @@
-# Algorithms
+# Quick Sort Algorithm
 
-Welcome to the Algorithms repository! This repository contains implementations of various important algorithms that are fundamental to computer science and software engineering. Below is a list of the key algorithms we will be covering:
+## Introduction
+Quick Sort is a highly efficient and widely used sorting algorithm that follows the **divide and conquer** strategy. It works by selecting a "pivot" element and partitioning the array around the pivot, ensuring that elements smaller than the pivot are on the left and elements greater than the pivot are on the right.
 
-## Sorting Algorithms
-1. **Bubble Sort** - A simple comparison-based sorting algorithm.
-2. **Selection Sort** - An in-place comparison-based sorting algorithm.
-3. **Insertion Sort** - A simple and efficient comparison-based sorting algorithm.
-4. **Merge Sort** - A divide-and-conquer algorithm that is efficient and stable.
-5. **Quick Sort** - A highly efficient sorting algorithm that uses partitioning.
+## How Quick Sort Works
+1. Select a pivot element from the array (commonly the last, first, or a random element).
+2. Partition the array so that elements smaller than the pivot are on the left, and elements greater are on the right.
+3. Recursively apply Quick Sort to the left and right partitions.
+4. Combine the sorted partitions to form the final sorted array.
 
-## Searching Algorithms
-1. **Linear Search** - A simple search algorithm that checks each element.
-2. **Binary Search** - An efficient algorithm for finding an item from a sorted list.
+## Time Complexity
+| Case         | Time Complexity | Explanation |
+|-------------|---------------|-------------|
+| **Best Case**  | **O(n log n)** | Evenly divides the array into halves |
+| **Average Case**  | **O(n log n)** | Partitions effectively, maintaining balance |
+| **Worst Case**  | **O(n²)** | Unbalanced partitioning (e.g., sorted or reverse-sorted array with bad pivot selection) |
 
-## Graph Algorithms
-1. **Depth-First Search (DFS)** - An algorithm for traversing or searching tree or graph data structures.
-2. **Breadth-First Search (BFS)** - An algorithm for traversing or searching tree or graph data structures.
-3. **Dijkstra's Algorithm** - An algorithm for finding the shortest paths between nodes in a graph.
-4. **A* Search Algorithm** - An algorithm that is used in pathfinding and graph traversal.
+## Space Complexity
+- **O(log n) on average** (due to recursion stack)
+- **O(n) in worst case** (highly unbalanced partitions)
 
-## Dynamic Programming
-1. **Fibonacci Sequence** - A classic example of dynamic programming.
-2. **Knapsack Problem** - A problem in combinatorial optimization.
-3. **Longest Common Subsequence** - A problem to find the longest subsequence common to all sequences in a set of sequences.
+## Stability
+Quick Sort is **not a stable sorting algorithm**, meaning equal elements may change their relative order.
 
-## String Algorithms
-1. **KMP Algorithm** - An efficient string matching algorithm.
-2. **Rabin-Karp Algorithm** - A string searching algorithm that uses hashing.
+## Implementation (JavaScript)
+```javascript
+function quickSort(nums, low, high) {
+    if (low < high) {
+        const pivotIndex = partition(nums, low, high);
+        quickSort(nums, low, pivotIndex - 1);
+        quickSort(nums, pivotIndex + 1, high);
+    }
+}
 
-## Other Important Algorithms
-1. **Euclidean Algorithm** - An efficient method for computing the greatest common divisor (GCD).
-2. **Prime Number Algorithms** - Algorithms for finding prime numbers, such as the Sieve of Eratosthenes.
+function partition(nums, low, high) {
+    const pivot = nums[high];
+    let i = low - 1;
+    for (let j = low; j <= high - 1; j++) {
+        if (nums[j] < pivot) {
+            i += 1;
+            [nums[i], nums[j]] = [nums[j], nums[i]];
+        }
+    }
 
-Each algorithm will be implemented in a separate file with detailed comments and explanations. We hope this repository will be a valuable resource for learning and understanding these fundamental algorithms.
+    [nums[i + 1], nums[high]] = [nums[high], nums[i + 1]];
+    return i + 1;
+}
 
-Happy coding!
+// Example usage
+const nums = [5,1,1,2,0,0]
+quickSort(nums, 0, nums.length - 1);
+```
 
-## Contributing
-We welcome contributions! If you have an algorithm that you would like to add or an improvement to an existing algorithm, please feel free to submit a pull request.
+## Advantages
+- **Faster than O(n²) algorithms** like Bubble Sort, Selection Sort, and Insertion Sort
+- **Efficient for large datasets**
+- **In-place sorting with optimized implementations** (Lomuto or Hoare partitioning)
 
-## License
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+## Disadvantages
+- **Worst-case time complexity is O(n²)** (but can be avoided with good pivot selection strategies)
+- **Not stable**, meaning relative order of equal elements is not maintained
+- **Recursive nature may cause stack overflow** on very large datasets
+
+## When to Use Quick Sort
+- When a **fast sorting algorithm** is needed
+- When **extra space is limited** (optimized in-place versions exist)
+- When **randomized pivot selection** can be used to minimize worst-case scenarios
+
+## Conclusion
+Quick Sort is one of the fastest and most efficient sorting algorithms for general use. For best performance, **Merge Sort** is a good alternative when **stability is required** or for **linked lists**.
+
