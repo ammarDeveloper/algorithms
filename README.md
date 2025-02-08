@@ -6,8 +6,19 @@ Welcome to the Algorithms repository! This repository contains implementations o
 1. **Bubble Sort** - A simple comparison-based sorting algorithm.
 2. **Selection Sort** - An in-place comparison-based sorting algorithm.
 3. **Insertion Sort** - A simple and efficient comparison-based sorting algorithm.
-4. **Merge Sort** - A divide-and-conquer algorithm that is efficient and stable.
-5. **Quick Sort** - A highly efficient sorting algorithm that uses partitioning.
+4. **Quick Sort** - A highly efficient sorting algorithm that uses partitioning.
+5. **Merge Sort** - A divide-and-conquer algorithm that is efficient and stable.
+
+## Comparison between Sorting Algorithms
+
+| Feature          | Merge Sort   | Quick Sort  | Bubble Sort | Insertion Sort | Selection Sort |
+|-----------------|-------------|------------|-------------|---------------|---------------|
+| **Best Case**   | O(n log n)   | O(n log n)  | O(n)        | O(n)          | O(n²)         |
+| **Worst Case**  | O(n log n)   | O(n²)      | O(n²)      | O(n²)        | O(n²)        |
+| **Average Case**| O(n log n)   | O(n log n)  | O(n²)       | O(n²)         | O(n²)         |
+| **Space Complexity** | O(n)    | O(log n)   | O(1)        | O(1)          | O(1)          |
+| **Stability**   | ✅ Yes       | ❌ No       | ✅ Yes       | ✅ Yes         | ❌ No         |
+| **Practical Use** | ✅ Large datasets | ✅ General purpose | ❌ Slow | ✅ Small datasets | ❌ Slow |
 
 ## Searching Algorithms
 1. **Linear Search** - A simple search algorithm that checks each element.
@@ -41,3 +52,4 @@ We welcome contributions! If you have an algorithm that you would like to add or
 
 ## License
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
