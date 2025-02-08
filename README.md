@@ -1,55 +1,75 @@
-# Algorithms
+# Merge Sort Algorithm
 
-Welcome to the Algorithms repository! This repository contains implementations of various important algorithms that are fundamental to computer science and software engineering. Below is a list of the key algorithms we will be covering:
+## Introduction
+Merge Sort is a **divide and conquer** sorting algorithm that splits an array into smaller subarrays, sorts them, and then merges them back together to form a sorted array.
 
-## Sorting Algorithms
-1. **Bubble Sort** - A simple comparison-based sorting algorithm.
-2. **Selection Sort** - An in-place comparison-based sorting algorithm.
-3. **Insertion Sort** - A simple and efficient comparison-based sorting algorithm.
-4. **Quick Sort** - A highly efficient sorting algorithm that uses partitioning.
-5. **Merge Sort** - A divide-and-conquer algorithm that is efficient and stable.
+## How Merge Sort Works
+1. **Divide:** Split the array into two halves until each subarray contains a single element.
+2. **Conquer:** Recursively sort each half.
+3. **Merge:** Combine the sorted halves into a single sorted array.
 
-## Comparison between Sorting Algorithms
+## Time Complexity
+| Case         | Time Complexity | Explanation |
+|-------------|---------------|-------------|
+| **Best Case**  | **O(n log n)**   | Always divides array and merges efficiently |
+| **Average Case**  | **O(n log n)** | Consistently divides and merges elements |
+| **Worst Case**  | **O(n log n)** | Recursively splits and merges in every case |
 
-| Feature          | Merge Sort   | Quick Sort  | Bubble Sort | Insertion Sort | Selection Sort |
-|-----------------|-------------|------------|-------------|---------------|---------------|
-| **Best Case**   | O(n log n)   | O(n log n)  | O(n)        | O(n)          | O(n²)         |
-| **Worst Case**  | O(n log n)   | O(n²)      | O(n²)      | O(n²)        | O(n²)        |
-| **Average Case**| O(n log n)   | O(n log n)  | O(n²)       | O(n²)         | O(n²)         |
-| **Space Complexity** | O(n)    | O(log n)   | O(1)        | O(1)          | O(1)          |
-| **Stability**   | ✅ Yes       | ❌ No       | ✅ Yes       | ✅ Yes         | ❌ No         |
-| **Practical Use** | ✅ Large datasets | ✅ General purpose | ❌ Slow | ✅ Small datasets | ❌ Slow |
+## Space Complexity
+- **O(n)** (Requires additional space for temporary subarrays)
 
-## Searching Algorithms
-1. **Linear Search** - A simple search algorithm that checks each element.
-2. **Binary Search** - An efficient algorithm for finding an item from a sorted list.
+## Stability
+Merge Sort is a **stable sorting algorithm**, meaning it maintains the relative order of equal elements.
 
-## Graph Algorithms
-1. **Depth-First Search (DFS)** - An algorithm for traversing or searching tree or graph data structures.
-2. **Breadth-First Search (BFS)** - An algorithm for traversing or searching tree or graph data structures.
-3. **Dijkstra's Algorithm** - An algorithm for finding the shortest paths between nodes in a graph.
-4. **A* Search Algorithm** - An algorithm that is used in pathfinding and graph traversal.
+## Implementation (JavaScript)
+```javascript
+function mergeSort(nums) {
+    if (nums.length <= 1) {
+        return nums;
+    }
 
-## Dynamic Programming
-1. **Fibonacci Sequence** - A classic example of dynamic programming.
-2. **Knapsack Problem** - A problem in combinatorial optimization.
-3. **Longest Common Subsequence** - A problem to find the longest subsequence common to all sequences in a set of sequences.
+    const mid = Math.floor(nums.length / 2);
+    const leftHalv = mergeSort(nums.slice(0, mid));
+    const rightHalv = mergeSort(nums.slice(mid));
 
-## String Algorithms
-1. **KMP Algorithm** - An efficient string matching algorithm.
-2. **Rabin-Karp Algorithm** - A string searching algorithm that uses hashing.
+    return merge(leftHalv, rightHalv);
+}
 
-## Other Important Algorithms
-1. **Euclidean Algorithm** - An efficient method for computing the greatest common divisor (GCD).
-2. **Prime Number Algorithms** - Algorithms for finding prime numbers, such as the Sieve of Eratosthenes.
+function merge(leftHalv, rightHalv) {
+    const result = [];
+    let [i, j] = [0, 0];
 
-Each algorithm will be implemented in a separate file with detailed comments and explanations. We hope this repository will be a valuable resource for learning and understanding these fundamental algorithms.
+    while (i < leftHalv.length && j < rightHalv.length) {
+        if (leftHalv[i] <= rightHalv[j]) {
+            result.push(leftHalv[i]);
+            i += 1;
+        } else {
+            result.push(rightHalv[j]);
+            j += 1;
+        }
+    }
 
-Happy coding!
+    return [...result, ...leftHalv.slice(i), ...rightHalv.slice(j)]
+}
 
-## Contributing
-We welcome contributions! If you have an algorithm that you would like to add or an improvement to an existing algorithm, please feel free to submit a pull request.
+// Example usage:
+console.log(mergeSort([5, 3, 8, 4, 2]));
+```
 
-## License
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+## Advantages
+- **Efficient for large datasets** with O(n log n) complexity
+- **Stable sorting algorithm**
+- **Performs well on linked lists** (avoids expensive shifting)
+
+## Disadvantages
+- Requires **additional space** (O(n)) for merging subarrays
+- **Slower for small datasets** compared to simpler algorithms like Insertion Sort
+
+## When to Use Merge Sort
+- When sorting **large datasets**
+- When **stability** is required
+- When working with **linked lists** (avoids shifting elements)
+
+## Conclusion
+Merge Sort is a powerful sorting algorithm that ensures **consistent O(n log n) performance**. Although it requires additional space, it is ideal for **large datasets** and scenarios where a **stable sorting method** is needed.
 
