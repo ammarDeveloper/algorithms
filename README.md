@@ -1,43 +1,62 @@
-# Algorithms
+# Insertion Sort Algorithm
 
-Welcome to the Algorithms repository! This repository contains implementations of various important algorithms that are fundamental to computer science and software engineering. Below is a list of the key algorithms we will be covering:
+## Introduction
+Insertion Sort is a simple and efficient comparison-based sorting algorithm. It builds the final sorted array one element at a time by inserting each element into its correct position.
 
-## Sorting Algorithms
-1. **Bubble Sort** - A simple comparison-based sorting algorithm.
-2. **Selection Sort** - An in-place comparison-based sorting algorithm.
-3. **Insertion Sort** - A simple and efficient comparison-based sorting algorithm.
-4. **Merge Sort** - A divide-and-conquer algorithm that is efficient and stable.
-5. **Quick Sort** - A highly efficient sorting algorithm that uses partitioning.
+## How Insertion Sort Works
+1. Start with the second element (index 1) and compare it with the elements before it.
+2. Shift larger elements to the right to make space for the current element.
+3. Insert the current element into its correct position.
+4. Repeat the process for all elements in the list.
 
-## Searching Algorithms
-1. **Linear Search** - A simple search algorithm that checks each element.
-2. **Binary Search** - An efficient algorithm for finding an item from a sorted list.
+## Time Complexity
+| Case         | Time Complexity | Explanation |
+|-------------|---------------|-------------|
+| **Best Case**  | **O(n)**       | Already sorted, only one comparison per element |
+| **Average Case**  | **O(n²)**     | Random order, requires shifting elements |
+| **Worst Case**  | **O(n²)**     | Reverse sorted, maximum shifting needed |
 
-## Graph Algorithms
-1. **Depth-First Search (DFS)** - An algorithm for traversing or searching tree or graph data structures.
-2. **Breadth-First Search (BFS)** - An algorithm for traversing or searching tree or graph data structures.
-3. **Dijkstra's Algorithm** - An algorithm for finding the shortest paths between nodes in a graph.
-4. **A* Search Algorithm** - An algorithm that is used in pathfinding and graph traversal.
+## Space Complexity
+- **O(1)** (In-place sorting, requires no extra memory apart from variables)
 
-## Dynamic Programming
-1. **Fibonacci Sequence** - A classic example of dynamic programming.
-2. **Knapsack Problem** - A problem in combinatorial optimization.
-3. **Longest Common Subsequence** - A problem to find the longest subsequence common to all sequences in a set of sequences.
+## Stability
+Insertion Sort is a **stable sorting algorithm**, meaning it maintains the relative order of equal elements.
 
-## String Algorithms
-1. **KMP Algorithm** - An efficient string matching algorithm.
-2. **Rabin-Karp Algorithm** - A string searching algorithm that uses hashing.
+## Implementation (JavaScript)
+```javascript
+function insertionSort(arr) {
+    for (let i = 1; i < arr.length; i++) {
+        let key = arr[i];
+        let j = i - 1;
+        
+        while (j >= 0 && arr[j] > key) {
+            arr[j + 1] = arr[j]; // Shift element to the right
+            j--;
+        }
+        arr[j + 1] = key; // Insert key in the correct position
+    }
+    return arr;
+}
 
-## Other Important Algorithms
-1. **Euclidean Algorithm** - An efficient method for computing the greatest common divisor (GCD).
-2. **Prime Number Algorithms** - Algorithms for finding prime numbers, such as the Sieve of Eratosthenes.
+// Example usage:
+console.log(insertionSort([5, 3, 8, 4, 2]));
+```
 
-Each algorithm will be implemented in a separate file with detailed comments and explanations. We hope this repository will be a valuable resource for learning and understanding these fundamental algorithms.
+## Advantages
+- Simple to implement
+- Efficient for **small datasets** or nearly sorted lists
+- **Stable sorting algorithm**
+- Works well for **online sorting** (sorting data as it arrives)
 
-Happy coding!
+## Disadvantages
+- **Inefficient for large datasets** due to **O(n²) complexity**
+- Requires **shifting elements**, making it slower than other O(n log n) sorting algorithms
 
-## Contributing
-We welcome contributions! If you have an algorithm that you would like to add or an improvement to an existing algorithm, please feel free to submit a pull request.
+## When to Use Insertion Sort
+- When sorting **small datasets** (less than ~50 elements)
+- When data is **almost sorted** (best case O(n))
+- When needing a **stable and simple** sorting method
 
-## License
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+## Conclusion
+Insertion Sort is an intuitive sorting algorithm suitable for small or nearly sorted datasets. For large datasets, **Merge Sort (O(n log n))** or **Quick Sort (O(n log n) on average)** are more efficient choices.
+
