@@ -1,43 +1,64 @@
-# Algorithms
+# Selection Sort Algorithm
 
-Welcome to the Algorithms repository! This repository contains implementations of various important algorithms that are fundamental to computer science and software engineering. Below is a list of the key algorithms we will be covering:
+## Introduction
+Selection Sort is a simple comparison-based sorting algorithm. It works by repeatedly selecting the smallest (or largest) element from the unsorted portion of the array and moving it to the sorted portion.
 
-## Sorting Algorithms
-1. **Bubble Sort** - A simple comparison-based sorting algorithm.
-2. **Selection Sort** - An in-place comparison-based sorting algorithm.
-3. **Insertion Sort** - A simple and efficient comparison-based sorting algorithm.
-4. **Merge Sort** - A divide-and-conquer algorithm that is efficient and stable.
-5. **Quick Sort** - A highly efficient sorting algorithm that uses partitioning.
+## How Selection Sort Works
+1. Divide the array into two parts: **sorted** and **unsorted**.
+2. Find the **smallest element** in the unsorted part.
+3. Swap it with the **first element** of the unsorted part.
+4. Move the boundary between the sorted and unsorted parts one step forward.
+5. Repeat until the entire array is sorted.
 
-## Searching Algorithms
-1. **Linear Search** - A simple search algorithm that checks each element.
-2. **Binary Search** - An efficient algorithm for finding an item from a sorted list.
+## Time Complexity
+| Case         | Time Complexity | Explanation |
+|-------------|---------------|-------------|
+| **Best Case**  | **O(n²)**       | Always scans the entire unsorted part, even if sorted |
+| **Average Case**  | **O(n²)**     | Always makes (n-1) swaps in worst case |
+| **Worst Case**  | **O(n²)**     | Reverse sorted, requires maximum swaps |
 
-## Graph Algorithms
-1. **Depth-First Search (DFS)** - An algorithm for traversing or searching tree or graph data structures.
-2. **Breadth-First Search (BFS)** - An algorithm for traversing or searching tree or graph data structures.
-3. **Dijkstra's Algorithm** - An algorithm for finding the shortest paths between nodes in a graph.
-4. **A* Search Algorithm** - An algorithm that is used in pathfinding and graph traversal.
+## Space Complexity
+- **O(1)** (In-place sorting, requires no extra memory apart from variables)
 
-## Dynamic Programming
-1. **Fibonacci Sequence** - A classic example of dynamic programming.
-2. **Knapsack Problem** - A problem in combinatorial optimization.
-3. **Longest Common Subsequence** - A problem to find the longest subsequence common to all sequences in a set of sequences.
+## Stability
+Selection Sort is **not a stable sorting algorithm** because swapping may change the relative order of equal elements.
 
-## String Algorithms
-1. **KMP Algorithm** - An efficient string matching algorithm.
-2. **Rabin-Karp Algorithm** - A string searching algorithm that uses hashing.
+## Implementation (JavaScript)
+```javascript
+function selectionSort(arr) {
+    let n = arr.length;
+    
+    for (let i = 0; i < n - 1; i++) {
+        let minIndex = i;
+        for (let j = i + 1; j < n; j++) {
+            if (arr[j] < arr[minIndex]) {
+                minIndex = j;
+            }
+        }
+        // Swap the found minimum element with the first element
+        [arr[i], arr[minIndex]] = [arr[minIndex], arr[i]];
+    }
+    return arr;
+}
 
-## Other Important Algorithms
-1. **Euclidean Algorithm** - An efficient method for computing the greatest common divisor (GCD).
-2. **Prime Number Algorithms** - Algorithms for finding prime numbers, such as the Sieve of Eratosthenes.
+// Example usage:
+console.log(selectionSort([5, 3, 8, 4, 2]));
+```
 
-Each algorithm will be implemented in a separate file with detailed comments and explanations. We hope this repository will be a valuable resource for learning and understanding these fundamental algorithms.
+## Advantages
+- Simple to implement
+- Performs **at most n swaps**, which is better than Bubble Sort
+- Works well for **small datasets**
 
-Happy coding!
+## Disadvantages
+- **Inefficient for large datasets** due to **O(n²) complexity**
+- **Not stable**, which means equal elements may lose their relative order
 
-## Contributing
-We welcome contributions! If you have an algorithm that you would like to add or an improvement to an existing algorithm, please feel free to submit a pull request.
+## When to Use Selection Sort
+- When the number of **swaps should be minimized**
+- When sorting **small datasets** where performance is not critical
+- When **stability is not required**
 
-## License
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+## Conclusion
+Selection Sort is an intuitive sorting algorithm, but it is inefficient for large datasets. For better performance, use **Merge Sort (O(n log n))** or **Quick Sort (O(n log n) on average)** instead.
+
