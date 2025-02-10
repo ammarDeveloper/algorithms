@@ -1,55 +1,75 @@
-# Algorithms
+# Depth-First Search (DFS) Algorithm
 
-Welcome to the Algorithms repository! This repository contains implementations of various important algorithms that are fundamental to computer science and software engineering. Below is a list of the key algorithms we will be covering:
+## Introduction
+Depth-First Search (DFS) is an algorithm used for traversing or searching tree or graph data structures. The algorithm starts at the root node and explores as far as possible along each branch before backtracking.
 
-## Sorting Algorithms
-1. **Bubble Sort** - A simple comparison-based sorting algorithm.
-2. **Selection Sort** - An in-place comparison-based sorting algorithm.
-3. **Insertion Sort** - A simple and efficient comparison-based sorting algorithm.
-4. **Quick Sort** - A highly efficient sorting algorithm that uses partitioning.
-5. **Merge Sort** - A divide-and-conquer algorithm that is efficient and stable.
+## How DFS Works
+1. Start from the root (or any arbitrary node in case of a graph).
+2. Visit the node and mark it as visited.
+3. Recursively visit all the unvisited adjacent nodes.
+4. If a dead-end is reached, backtrack to the last visited node and continue.
 
-## Comparison between Sorting Algorithms
+## DFS Implementation in JavaScript
+Below is the JavaScript implementation of DFS for a graph using an adjacency list representation.
 
-| Feature          | Merge Sort   | Quick Sort  | Bubble Sort | Insertion Sort | Selection Sort |
-|-----------------|-------------|------------|-------------|---------------|---------------|
-| **Best Case**   | O(n log n)   | O(n log n)  | O(n)        | O(n)          | O(n²)         |
-| **Worst Case**  | O(n log n)   | O(n²)      | O(n²)      | O(n²)        | O(n²)        |
-| **Average Case**| O(n log n)   | O(n log n)  | O(n²)       | O(n²)         | O(n²)         |
-| **Space Complexity** | O(n)    | O(log n)   | O(1)        | O(1)          | O(1)          |
-| **Stability**   | ✅ Yes       | ❌ No       | ✅ Yes       | ✅ Yes         | ❌ No         |
-| **Practical Use** | ✅ Large datasets | ✅ General purpose | ❌ Slow | ✅ Small datasets | ❌ Slow |
+```javascript
+class Graph {
+    constructor() {
+        this.adjacencyList = {};
+    }
 
-## Searching Algorithms
-1. **Linear Search** - A simple search algorithm that checks each element.
-2. **Binary Search** - An efficient algorithm for finding an item from a sorted list.
+    addVertex(vertex) {
+        if (!this.adjacencyList[vertex]) {
+            this.adjacencyList[vertex] = [];
+        }
+    }
 
-## Graph Algorithms
-1. **Depth-First Search (DFS)** - An algorithm for traversing or searching tree or graph data structures.
-2. **Breadth-First Search (BFS)** - An algorithm for traversing or searching tree or graph data structures.
-3. **Dijkstra's Algorithm** - An algorithm for finding the shortest paths between nodes in a graph.
-4. **A* Search Algorithm** - An algorithm that is used in pathfinding and graph traversal.
+    addEdge(vertex1, vertex2) {
+        this.adjacencyList[vertex1].push(vertex2);
+        this.adjacencyList[vertex2].push(vertex1);
+    }
 
-## Dynamic Programming
-1. **Fibonacci Sequence** - A classic example of dynamic programming.
-2. **Knapsack Problem** - A problem in combinatorial optimization.
-3. **Longest Common Subsequence** - A problem to find the longest subsequence common to all sequences in a set of sequences.
+    dfs(start, visited = new Set()) {
+        if (!this.adjacencyList[start]) return;
+        
+        console.log(start);
+        visited.add(start);
+        
+        for (let neighbor of this.adjacencyList[start]) {
+            if (!visited.has(neighbor)) {
+                this.dfs(neighbor, visited);
+            }
+        }
+    }
+}
 
-## String Algorithms
-1. **KMP Algorithm** - An efficient string matching algorithm.
-2. **Rabin-Karp Algorithm** - A string searching algorithm that uses hashing.
+// Example Usage:
+const graph = new Graph();
+graph.addVertex('A');
+graph.addVertex('B');
+graph.addVertex('C');
+graph.addVertex('D');
+graph.addVertex('E');
 
-## Other Important Algorithms
-1. **Euclidean Algorithm** - An efficient method for computing the greatest common divisor (GCD).
-2. **Prime Number Algorithms** - Algorithms for finding prime numbers, such as the Sieve of Eratosthenes.
+graph.addEdge('A', 'B');
+graph.addEdge('A', 'C');
+graph.addEdge('B', 'D');
+graph.addEdge('C', 'E');
+graph.addEdge('D', 'E');
 
-Each algorithm will be implemented in a separate file with detailed comments and explanations. We hope this repository will be a valuable resource for learning and understanding these fundamental algorithms.
+graph.dfs('A');
+```
 
-Happy coding!
+## Complexity Analysis
+- **Time Complexity**: \(O(V + E)\), where V is the number of vertices and E is the number of edges.
+- **Space Complexity**: \(O(V)\) due to the recursion stack and visited set.
 
-## Contributing
-We welcome contributions! If you have an algorithm that you would like to add or an improvement to an existing algorithm, please feel free to submit a pull request.
+## Applications of DFS
+- Finding connected components in a graph.
+- Solving mazes and puzzles.
+- Topological sorting in a Directed Acyclic Graph (DAG).
+- Detecting cycles in a graph.
 
-## License
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+## Conclusion
+DFS is a fundamental graph traversal algorithm used in various applications, including AI, networking, and pathfinding. The above JavaScript implementation provides a simple yet effective way to explore graphs using DFS.
 
