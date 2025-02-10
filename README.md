@@ -1,55 +1,113 @@
-# Algorithms
+# Search Algorithms
 
-Welcome to the Algorithms repository! This repository contains implementations of various important algorithms that are fundamental to computer science and software engineering. Below is a list of the key algorithms we will be covering:
+This repository contains documentation and explanations of four fundamental search algorithms: Linear Search, Binary Search, Jump Search, and Interpolation Search. These algorithms are used to find elements in an array efficiently based on different conditions and constraints.
 
-## Sorting Algorithms
-1. **Bubble Sort** - A simple comparison-based sorting algorithm.
-2. **Selection Sort** - An in-place comparison-based sorting algorithm.
-3. **Insertion Sort** - A simple and efficient comparison-based sorting algorithm.
-4. **Quick Sort** - A highly efficient sorting algorithm that uses partitioning.
-5. **Merge Sort** - A divide-and-conquer algorithm that is efficient and stable.
+---
 
-## Comparison between Sorting Algorithms
+## 1. Linear Search
 
-| Feature          | Merge Sort   | Quick Sort  | Bubble Sort | Insertion Sort | Selection Sort |
-|-----------------|-------------|------------|-------------|---------------|---------------|
-| **Best Case**   | O(n log n)   | O(n log n)  | O(n)        | O(n)          | O(n²)         |
-| **Worst Case**  | O(n log n)   | O(n²)      | O(n²)      | O(n²)        | O(n²)        |
-| **Average Case**| O(n log n)   | O(n log n)  | O(n²)       | O(n²)         | O(n²)         |
-| **Space Complexity** | O(n)    | O(log n)   | O(1)        | O(1)          | O(1)          |
-| **Stability**   | ✅ Yes       | ❌ No       | ✅ Yes       | ✅ Yes         | ❌ No         |
-| **Practical Use** | ✅ Large datasets | ✅ General purpose | ❌ Slow | ✅ Small datasets | ❌ Slow |
+**Definition:**
+Linear Search is a simple search algorithm that sequentially checks each element of the list until a match is found or the whole list has been searched.
 
-## Searching Algorithms
-1. **Linear Search** - A simple search algorithm that checks each element.
-2. **Binary Search** - An efficient algorithm for finding an item from a sorted list.
+### **Algorithm:**
+1. Start from the leftmost element.
+2. Compare each element with the target element.
+3. If a match is found, return the index.
+4. If the element is not found, return -1.
 
-## Graph Algorithms
-1. **Depth-First Search (DFS)** - An algorithm for traversing or searching tree or graph data structures.
-2. **Breadth-First Search (BFS)** - An algorithm for traversing or searching tree or graph data structures.
-3. **Dijkstra's Algorithm** - An algorithm for finding the shortest paths between nodes in a graph.
-4. **A* Search Algorithm** - An algorithm that is used in pathfinding and graph traversal.
+### **Time Complexity:**
+- Best Case: **O(1)** (Element found at the first position)
+- Worst Case: **O(n)** (Element found at the last position or not present)
+- Average Case: **O(n)**
 
-## Dynamic Programming
-1. **Fibonacci Sequence** - A classic example of dynamic programming.
-2. **Knapsack Problem** - A problem in combinatorial optimization.
-3. **Longest Common Subsequence** - A problem to find the longest subsequence common to all sequences in a set of sequences.
+### **Usage:**
+- Works on both sorted and unsorted lists.
+- Useful for small or unsorted datasets.
 
-## String Algorithms
-1. **KMP Algorithm** - An efficient string matching algorithm.
-2. **Rabin-Karp Algorithm** - A string searching algorithm that uses hashing.
+---
 
-## Other Important Algorithms
-1. **Euclidean Algorithm** - An efficient method for computing the greatest common divisor (GCD).
-2. **Prime Number Algorithms** - Algorithms for finding prime numbers, such as the Sieve of Eratosthenes.
+## 2. Binary Search
 
-Each algorithm will be implemented in a separate file with detailed comments and explanations. We hope this repository will be a valuable resource for learning and understanding these fundamental algorithms.
+**Definition:**
+Binary Search is an efficient algorithm for finding an element in a sorted list by repeatedly dividing the search interval in half.
 
-Happy coding!
+### **Algorithm:**
+1. Set `low` to the first index and `high` to the last index.
+2. Compute the middle index: `mid = (low + high) / 2`.
+3. If `arr[mid]` is equal to the target, return `mid`.
+4. If `arr[mid]` is greater than the target, search in the left half (`high = mid - 1`).
+5. If `arr[mid]` is less than the target, search in the right half (`low = mid + 1`).
+6. Repeat until `low` exceeds `high` or the element is found.
 
-## Contributing
-We welcome contributions! If you have an algorithm that you would like to add or an improvement to an existing algorithm, please feel free to submit a pull request.
+### **Time Complexity:**
+- Best Case: **O(1)** (Element found at the middle index)
+- Worst Case: **O(log n)**
+- Average Case: **O(log n)**
 
-## License
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+### **Usage:**
+- Works only on sorted arrays.
+- Commonly used in searching large datasets efficiently.
 
+---
+
+## 3. Jump Search
+
+**Definition:**
+Jump Search is a searching algorithm for sorted arrays that reduces the number of comparisons by jumping in fixed steps instead of searching sequentially.
+
+### **Algorithm:**
+1. Set `step = sqrt(n)`, where `n` is the length of the array.
+2. Jump `step` indices ahead until the target is greater than or equal to the current element.
+3. Perform a linear search in the block where the element may be present.
+4. If found, return the index; otherwise, return -1.
+
+### **Time Complexity:**
+- Best Case: **O(1)**
+- Worst Case: **O(sqrt(n))**
+- Average Case: **O(sqrt(n))**
+
+### **Usage:**
+- Works on sorted arrays.
+- Useful when binary search is not feasible due to expensive middle element access.
+
+---
+
+## 4. Interpolation Search
+
+**Definition:**
+Interpolation Search is an improvement over Binary Search that estimates the position of the target element using a formula based on the distribution of values.
+
+### **Algorithm:**
+1. Compute the probable position:
+   ```
+   pos = low + ((target - arr[low]) * (high - low)) / (arr[high] - arr[low])
+   ```
+2. If `arr[pos]` matches the target, return `pos`.
+3. If `arr[pos]` is greater, search in the left subarray.
+4. If `arr[pos]` is smaller, search in the right subarray.
+5. Repeat until `low` exceeds `high` or the element is found.
+
+### **Time Complexity:**
+- Best Case: **O(1)**
+- Worst Case: **O(n)** (When elements are not uniformly distributed)
+- Average Case: **O(log log n)**
+
+### **Usage:**
+- Works best on uniformly distributed, sorted data.
+- More efficient than Binary Search when the data is evenly spread.
+
+---
+
+## Conclusion
+Each of these search algorithms has its own strengths and ideal use cases. The choice of algorithm depends on factors like dataset size, whether the data is sorted, and the efficiency required. Here’s a quick comparison:
+
+| Algorithm            | Best Case | Worst Case  | Average Case | Sorted Data Required |
+|----------------------|----------|-------------|--------------|----------------------|
+| Linear Search       | O(1)     | O(n)        | O(n)         | No                   |
+| Binary Search      | O(1)     | O(log n)    | O(log n)     | Yes                  |
+| Jump Search        | O(1)     | O(sqrt(n))  | O(sqrt(n))   | Yes                  |
+| Interpolation Search | O(1)     | O(n)        | O(log log n) | Yes                  |
+
+These algorithms are essential in computer science and software development, helping to optimize search operations in various applications.
+
+---
